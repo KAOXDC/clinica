@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %} Editar Historia {% endblock %}
+{% block content %} 
+	<form action"." method="POST">
+		{% csrf_token %}
+		<div class="row-fluid">
+			<div class="alert alert-info span4">
+				<p>Datos Personales</p>
+				{{form_per.as_p}}
+			</div>
+			<div class="alert alert-info span4">
+				<p>Datos Adicionales</p>
+				{{form_pac.as_p}}
+			</div>
+			<div class="span4">
+				<div class="alert alert-info ">
+					<p>Quien Crea la Historia</p>
+					{{form_his.as_p}}
+					
+				</div>
+				<div class="alert alert-success " >
+						<input class="btn btn-success btn-block" type="submit" value="Guardar Cambios" >
+						<button class="btn btn-inverse btn-block " href="/historia/{{his.id}}" > Cancelar </button>
+						<br>
+						<span class="label label-info">Fecha Actual {{ now }}</span>
+				</div>	
+			</div>	
+
+			
+		</div>	
+<script>
+  $(function() {
+    $( "#datepicker1 , #datepicker").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2013",
+      dateFormat: 'dd/mm/yy',
+      gotoCurrent: true,
+      // You can put more options here.
+
+    });
+  });
+  </script>
+
+  	
+	</form>
+	<br>
+	
+{% endblock %}

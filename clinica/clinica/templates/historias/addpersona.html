@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} Agregar Persona {% endblock %}
+{% block content %} <br> 
+	<form action"." method="POST">
+		{{now}}<br>
+		{% csrf_token %}
+		{{ form_a.as_p }}<br>
+		{{ form_b.as_p}}
+
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2013",
+      dateFormat: 'dd/mm/yy',
+      // You can put more options here.
+
+    });
+  });
+  </script>
+
+		<input type="submit" value="Guardar Persona">
+		<input type="reset" value="Limpiar">
+
+	</form>
+	<br>
+	{{ informacion }}
+
+{% endblock %}

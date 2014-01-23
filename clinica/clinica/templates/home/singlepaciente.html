@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %} Pacientes {{ paciente.persona }}  {% endblock %}
+{% block content %} <br> 
+
+<h3> {{ paciente.persona|title }} </h3>
+<p><b>{{ paciente.persona.identificacion }}</b> : {{ paciente.persona.cedula }}</p>
+<p><b>fecha de Nacimiento:</b> {{ paciente.persona.fecha_nacimiento }} <b>Edad:</b> {{ paciente.persona.edad }}</p>
+<p><b>Sexo:</b> {{ paciente.persona.genero|title }} <b>Ciudad:</b> {{ paciente.persona.ciudad|title }}</p>
+<p><b>I.P.S.:</b> {{ paciente.ips|title }} <b>Tipo de Usuario:</b> {{ paciente.tipo|title }}</p>
+
+{% if user.is_authenticated %}
+	{% if info == 2  %}
+		<a class="btn btn-primary" href="/add/historia/{{paciente.id}}/"><li class="icon-plus"></li> Crear Historia </a>
+	{% else %}
+		
+			{% if info == 1  %}
+				<a class="btn btn-warning" href="/historia/{{h.id}}/"><li class="icon-edit"></li> Editar Historia </a>
+			{% endif %}						
+	{% endif %}
+{% endif %}						
+					
+<a class="btn btn-inverse" href="/pacientes/page/1"> Regresar a la lista Pacientes</a>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% block content %} 
+	
+	{% load humanize %}
+	{% if planes %}
+		<table class="table table-hover alert alert-info table-condensed">
+			<caption><h4>Lista de Diagnosticos</h4></caption>
+			<header>
+				<tr>
+					<th>Fecha</th>
+					<th>Diente</th>
+					<th>Superf</th>
+					<th>Diagnostico</th>
+					<th>Plan de Tratamiento</th>
+					<th>Doctor</th>
+					
+				</tr>
+			</header>
+		{% for e in planes %}
+			<body align="justify">
+				<tr>
+					<td>{{e.fecha|date}}</td>
+					<td>{{e.diente}}</td>
+					<td>{{e.superficie}}</td>
+					<td>{{e.diagnostico|title|truncatechars:20}}</td>
+					<td>{{e.plan_de_tratamiento|title|truncatechars:20}}</td>
+					<td>{{e.doctor.persona|title}}</td>
+					{% if user.is_authenticated %}
+						<td>
+							<a class="btn btn-warning" href="/edit/plan/{{e.id}}"><li class="icon-pencil"></li> Editar</a>
+						</td>
+					{% endif %}
+				</tr>
+			</body>	
+		{% endfor %}
+		</table>
+	{% else %}
+		<h2>No hay Diagnosticos Registrados</h2>
+	{% endif %}
+
+
+{% endblock %}

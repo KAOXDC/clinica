@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %} Inicio - Bienvenido {% endblock %}
+{% block content %} 
+
+<div align="center" class ="alert alert-warning">
+	{% if user.is_authenticated %}
+		<p>Bienvenido {{user}} </p>
+	{% else %}	
+		<p>Bienvenido loguese para tener privilegios de Administrador</p>
+		<a class="btn btn-primary" href="/login/">Loguearse</a>
+	{% endif %}
+</div>
+<br>
+<div class="row-fluid" align="justify">
+	<ul class = "thumbnails" >
+
+		<li class = "span4">
+			<div class ="thumbnails">
+				<img alt="300x200" style="width: 300px; height: 200px;" src="media/images/historias.jpg">
+			</div>
+			<div class="caption">
+				<h3>Historias Clinicas</h3>
+				<p>Lista las historias Clinicas por Paciente y sus Evoluciones.</p>
+				
+				<p><a href="/historias/page/1/" class="btn btn-primary btn-block">Lista Historias</a></p>
+			</div>
+		</li>
+
+		<li class = "span4">
+			<div class ="thumbnails">
+				<img alt="300x200" style="width: 300px; height: 200px;" src="media/images/doctores.jpg">
+			</div>
+			<div class="caption">
+				<h3>Doctores</h3>
+				<p>Lista los Odontologos,Cirujanos Maxilofaciales,Orthodoncistas.</p>
+				<p><a href="/profesionales/page/1/" class="btn btn-primary btn-block">Lista Profesionales</a></p>
+			</div>
+		</li>
+
+	</ul>
+
+
+
+</div>
+{% endblock %}

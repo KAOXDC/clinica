@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Pagina de Profesionales {% endblock %}
+{% block content %} 
+	<h3>Lista de Profesionales</h3>
+	{% if user.is_authenticated %}
+		<a href="{% url 'vista_agregar_profesional' %}" class="btn btn-primary"> <i class"icon-plus"></i>Nuevo Profesional</a><br><br>
+	{% endif %}
+	{% if profesionales %}
+		<table class="table table-hover alert alert-info">
+			<header>
+				<tr>
+					<th>Nombre Profesional</th>
+					<th>Profesion</th>
+					<th>Cedula</th>
+					<th>Ver Info</th>
+				</tr>
+			</header>
+		{% for p in profesionales %}
+			<body>
+				<tr>
+					<td>{{p.persona|title}}</td>
+					<td>{{p.profesion|title}}</td>
+					<td>{{p.persona.cedula}}</td>
+					<td>
+						<a class="btn btn-info" href="/profesional/{{p.id}}/"><li class="icon-search"></li> Ver </a>
+					</td>
+					{% if user.is_authenticated %}
+						<td>
+							<a class="btn btn-warning" href="/edit/profesional/{{p.id}}"><li class="icon-edit"></li> Editar </a>
+						</td>
+					{% endif %}
+					</tr>
+			</body>	
+			
+		{% endfor %}
+		</table>
+	{% else %}
+		<h2>No hay Profesionales Registrados</h2>
+	{% endif %}
+
+{% if profesionales %}
+	<div class="pagination pagination-centered">
+		<ul>
+			<li><a href="/profesionales/page/1"> << </a></li>
+			{% if profesionales.has_previous %}
+				<li><a href="/profesionales/page/{{ profesionales.previous_page_number }}"> Anterior </a></li>
+			{% else %}
+				<li><a href="#"> Anterior </a></li>
+			{% endif %}
+
+			{% if profesionales.has_next %}
+				<li><a href="/profesionales/page/{{ profesionales.next_page_number }}"> Siguiente </a></li>
+			{% else %}
+				<li><a href="#"> Siguiente </a></li>
+			{% endif %}
+				<li><a href="/profesionales/page/{{ profesionales.paginator.num_pages }}"> >> </a></li>
+		</ul>	
+	</div>
+		<br>
+		<h4>Pagina {{ profesionales.number }} de {{ profesionales.paginator.num_pages }}</h4>
+{% endif %}
+{% endblock %}

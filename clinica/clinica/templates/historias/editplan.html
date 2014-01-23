@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %} Editar plan de Tratamiento y Diagnostico {% endblock %}
+{% block content %} 
+	<form action"." method="POST">
+		{% csrf_token %}
+		{{ form_pla.as_p }}
+		<script>
+			$(function() {
+	    		$( "#datepicker" ).datepicker({
+	    			changeMonth: true,
+	    			changeYear: true,
+	    			yearRange: "1900:2013",
+	   				dateFormat: 'dd/mm/yy',
+				      // You can put more options here.
+	   			});
+			});
+	  </script>
+		<input class="btn btn-success" type="submit" value="Guardar Evolucion">
+		<button class="btn btn-inverse" href="/historia/{{his.id}}"> Cancelar </button>
+	</form>
+	<br>
+	
+{% endblock %}

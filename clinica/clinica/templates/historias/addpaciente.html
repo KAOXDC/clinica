@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %} Agregar Paciente {% endblock %}
+{% block content %} 
+	<form action"." method="POST">
+		<div class="container-fluid">
+		{% csrf_token %}
+		<div class="span5">
+		<p>Datos Personales del Paciente</p>
+		{{ form_per.as_p }}
+		</div>
+		<div class="span5">
+			<p>Datos Generales del Paciente</p>
+			{{ form_pac.as_p }}
+		</div>
+		</div>
+		<div align ="center">
+			<input class="btn btn-success" type="submit" value="Guardar Paciente">
+			<input class="btn btn-inverse" type="reset" value="Limpiar">
+		</div>
+	</form>
+	<br>
+	
+{% endblock %}

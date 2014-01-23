@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title> {% block title %} Bienbenidos {% endblock %} </title>
+	<link rel="stylesheet" type="text/css" href="/media/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/media/bootstrap/css/bootstrap-responsive.css">
+	<link rel="stylesheet" type="text/css" href="/media/css/excite-bike/jquery-ui-1.10.3.custom.css">
+
+	
+	<script src="/media/js/ajax.js"></script>
+	<script src="/media/js/jquery.js"></script>
+	<script src="/media/js/jquery-ui.js"></script>
+	<script src="/media/bootstrap/js/bootstrap.js"></script>
+	{% load humanize %}
+	<style type="text/css">
+		body{
+			padding-top: 60px;
+			padding-bottom: 40px;
+		}
+		.hero-unit{		padding-top: 39px;}
+		.sidebar-nav{	padding: 9px;}
+	</style>
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class = "navbar-inner">
+			<a class ="brand" href="{% url 'vista_principal' %}"> Clinica Mundo Oral </a>
+			<ul class = "nav">
+				<li><a href="/historias/page/1">Historias</a></li>
+				<li><a href="/profesionales/page/1">Profesionales</a></li>
+				{% if user.is_authenticated %}
+					<li><a href="{% url 'vista_logout' %}"> Cerrar Sesion </a></li>
+				{% else %}
+					<li><a href="{% url 'vista_login' %}"> Login </a></li>
+				{% endif %}	
+			</ul>
+			<div class="busqueda">
+            	<form class="navbar-search pull-left" method="POST" action="/buscar/">{% csrf_token %}
+               		<input type="text" name="buscalo" class="search-query" placeholder="Buscar Historia Clinica o Paciente">
+                	<div class="btn-group">
+                    	<button class="btn btn-info" type="submit"><i class="icon-search"></i></button>
+                	</div>
+            	</form>
+            </div>
+		</div>	
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span9">
+				<div class="hero-unit">
+					{% block content %}
+					{% endblock %}
+				</div>
+			</div>
+			<div class="span3">
+				<div class="well sidebar-nav">
+					<div class="nav nav-list">
+						<li class ="nav-header">Cliica Mundo Oral </li>
+						<br>
+						<img alt="300x200" style="width: 300px; height: 100px;" src="/media/images/logo.jpg">
+						<h4>Informacion</h4>
+						<div class="alert alert-info">
+							<h5>Clinica Mundo Oral</h5>  
+							<p><b>Direccion </b> : Cra 10 A # 6-10</p>
+							<p><b>Telefono</b> : 8241498</p>
+							<p>300 4940269</p>
+							<p>Popayan - Cauca</p>
+						</div>
+						<div align="center">
+							<img src="/media/images/django.gif" >
+							<img style="width: 126px; height: 54px;" src="/media/images/mysql.png" >
+						</div>
+					</div>	
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
+</body>
+			<footer>
+				<p>&copy; Clinica Mundo Oral y  &copy;  Fundacion Universitaria de Popayán 2013</p>
+			</footer>
+</html>

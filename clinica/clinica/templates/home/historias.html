@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Pagina de Historias {% endblock %}
+{% block content %} 
+	<h3>Lista de Historias</h3>
+	{% if user.is_authenticated %}
+	<a href="{% url 'vista_agregar_historia' %}" class="btn btn-primary"> <i class"icon-plus icon-white"></i>Nueva Historia Clinica</a><br><br>
+	{% endif %}
+	{{ info }}
+{% load humanize %}
+	{% if historias %}
+		<table class="table table-hover alert alert-info">
+			<header>
+				<tr>
+					<th>Nombre Paciente</th>
+					<th>Identificacion</th>
+					<th>Edad</th>
+					<th>Datos</th>
+				</tr>
+			</header>
+		{% for h in historias %}
+			<body>
+				<tr>
+					<td>{{h.paciente.persona|title}}</td>
+					<td>{{h.paciente.persona.cedula|intcomma}}</td>
+					<td>{{h.paciente.persona.edad}}</td>
+					<td>
+						<a class="btn btn-info " href="/historia/{{h.id}}/"><li class="icon-search"></li> Ver </a>
+					</td>
+					{% if user.is_authenticated %}
+						<td>
+							<a class="btn btn-warning" href="/edit/historia/{{h.id}}"><li class="icon-pencil"></li> Editar </a>
+						</td>
+					{% endif %}
+					</tr>
+			</body>	
+			
+		{% endfor %}
+		</table>
+	{% else %}
+		<h2>No hay Pacietes Registrados</h2>
+	{% endif %}
+
+{% if historias %}
+	<div class="pagination pagination-centered">
+		<ul>
+			<li><a href="/historias/page/1" > << </a></li>
+			{% if historias.has_previous %}
+				<li><a href="/historias/page/{{ historias.previous_page_number }}"> Anterior </a></li>
+			{% else %}
+				<li><a href="#"> Anterior </a></li>
+			{% endif %}
+
+			{% if historias.has_next %}
+				<li><a href="/historias/page/{{ historias.next_page_number }}"> Siguiente </a></li>
+			{% else %}
+				<li><a href="#"> Siguiente </a></li>
+			{% endif %}
+				<li><a href="/historias/page/{{ historias.paginator.num_pages }}"> >> </a></li>
+		</ul>	
+	</div>
+		<br>
+		<h4>Pagina {{ historias.number }} de {{ historias.paginator.num_pages }}</h4>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% block content %} 
+	{% load humanize %}
+	{% if evoluciones %}
+		<table class="table table-hover alert alert-info table-condensed">
+			<caption><h4>Lista de Evoluciones</h4></caption>
+			<header>
+				<tr>
+					<th>Fecha</th>
+					<th>Diente</th>
+					<th>Superf</th>
+					<th>Observacion</th>
+					<th>Doctor</th>
+					
+				</tr>
+			</header>
+		{% for e in evoluciones %}
+			<body align="justify">
+				<tr>
+					<td>{{e.fecha|date}}</td>
+					<td>{{e.diente}}</td>
+					<td>{{e.superficie}}</td>
+					<td>{{e.descripcion|title|truncatechars:20}}</td>
+					<td>{{e.doctor.persona|title}}</td>
+					{% if user.is_authenticated %}
+						<td>
+							<a class="btn btn-warning" href="/edit/evolucion/{{e.id}}"><li class="icon-pencil"></li> Editar</a>
+						</td>
+					{% endif %}
+				</tr>
+			</body>	
+		{% endfor %}
+		</table>
+	{% else %}
+		<h2>No hay Evoluciones Registradas</h2>
+	{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %} Profesional {{ profesional.persona }}  {% endblock %}
+{% block content %} <br> 
+{% load humanize %}
+<div class="well well-small">
+	<p><b>Doctor</b> : {{ profesional.persona|title }}</p>
+	<p><b>Profesion </b>: {{ profesional.profesion|title }} </p>
+	<p><b>Codigo </b>:{{ profesional.codigo }} </p>
+	<p><b>Telefono </b>:{{ profesional.persona.telefono }} </p>
+	<p><b>Direccion </b>:{{ profesional.persona.direccion|title }}  <b>ciudad </b>:{{ profesional.persona.ciudad|title }} </p>
+	<p><b>Email </b>:{{ profesional.persona.email |title }} </p>
+	<p><b>identificacion </b>:{{ profesional.persona.identificacion }}  <b>cedula </b>:{{ profesional.cedula|intcomma }} </p>
+	<p><b>genero </b>:{{ profesional.persona.genero |title }} </p>
+	<p><b>edad </b>:{{ profesional.persona.edad |title }} </p>
+</div>	
+ 
+<a class="btn btn-inverse"  href="/profesionales/page/1/"> <li	class="icon-arrow-left icon-white"></li> Regresar a Profesionales </a>
+
+{% endblock %}

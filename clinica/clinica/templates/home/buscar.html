@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %} Buscar {% endblock %}
+{% block content %} 
+
+{% load humanize %}
+	{% if his %}
+		<div class="alert alert-success" align="center" >
+			<h3>Resultados de la Busqueda</h3>
+		</div>
+		<table class="table table-hover alert alert-success">
+			<header>
+				<tr>
+					<th>Nombre Paciente</th>
+					<th>Identificacion</th>
+					<th>Edad</th>
+					<th>Datos</th>
+				</tr>
+			</header>
+		{% for h in his %}
+			<body>
+				<tr>
+					<td>{{h.paciente.persona|title}}</td>
+					<td>{{h.paciente.persona.cedula|intcomma}}</td>
+					<td>{{h.paciente.persona.edad}}</td>
+					<td>
+						<a class="btn btn-info " href="/historia/{{h.id}}/"><li class="icon-search"></li> Ver </a>
+					</td>
+					{% if user.is_authenticated %}
+						<td>
+							<a class="btn btn-warning" href="/edit/historia/{{h.id}}"><li class="icon-pencil"></li> Editar </a>
+						</td>
+					{% endif %}
+					</tr>
+			</body>	
+		{% endfor %}
+		</table>
+	{% else %}
+		<h2>No hay Pacietes encontrados </h2>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %} Historia {{ historia.persona }}  {% endblock %}
+{% block content %} <br> 
+{% load humanize %}
+
+<h3> {{ paciente.persona }} </h3>
+
+<div class="well well-small">
+	<h3><b>Historia Clinica</b> : {{ historia.codigo|intcomma }}</h3>
+	<p><b>Paciente </b>: {{ historia.paciente|title }} </p>
+	<p><b>Edad </b>: {{ historia.paciente.persona.edad }}</p>
+	<p><b>Telefono</b>{{ historia.paciente.persona.telefono }}</p>
+	<p><b>E-mail</b> {{ historia.paciente.persona.email }}</p>
+	<p><b>Doctor </b>: {{ historia.doctor.persona|title }} </p>
+</div>
+
+{% if user.is_authenticated %}
+	<a class="btn btn-success" href="/add/plan/{{historia.id}}/"><li class="icon-plus icon-white "></li> Agregar Diagnostico </a>
+	<a class="btn btn-primary" href="/add/evolucion/{{historia.id}}/"><li class="icon-plus icon-white "></li> Agregar Evolucion </a>
+{% endif %}
+	<a class="btn btn-inverse"  href="/historias/page/1/"> <li	class="icon-arrow-left icon-white"></li> Regresar a Historias</a>
+<br><br>
+
+
+  <script>
+  $(function() {
+    $( "#tabs" ).tabs();
+     collapsible: true
+  });
+  </script> 
+	<div id="tabs">
+	  <ul>
+	    <li><a href="#tabs-1">Diagnostico y Plan de Tratamiento</a></li>
+	    <li><a href="#tabs-2">Evoluciones</a></li>
+	  </ul>
+	  <div id="tabs-1">
+		{% include 'home/plan.html' %}	    
+	  </div>
+	  <div id="tabs-2" >
+		{% include 'home/evoluciones.html' %}
+	    
+	  </div>
+	</div>
+ 
+{% endblock %}
