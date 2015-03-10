@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^',include('clinica.apps.home.urls')),
     url(r'^',include('clinica.apps.historias.urls')),
+    url(r'^',include('clinica.apps.reportes.urls')),
     
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),

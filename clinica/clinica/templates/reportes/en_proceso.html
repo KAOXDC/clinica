@@ -1,0 +1,36 @@
+{% block content %} 
+	
+	{% load humanize %}
+	{% if info_enviado %}
+		<table class="table table-hover alert alert-info table-condensed">
+			<caption><h4>Lista de Diagnosticos En Proceso</h4></caption>
+			<header>
+				<tr>
+					<th>Nombre</th>
+					<th>Telefono</th>
+					<th>Email</th>
+					<th>Diagnostico</th>
+				</tr>
+			</header>
+		{% for e in plan_pro %}
+			<body align="justify">
+				<tr>
+					<td>{{e.historia.paciente.persona|title}}</td>
+					<td>{{e.historia.paciente.persona.telefono}}</td>
+					<td>{{e.historia.paciente.persona.email}}</td>
+					<td>{{e.diagnostico|title|truncatechars:20}}</td>
+					{% if user.is_authenticated %}
+						<td>
+							<a class="btn btn-warning" href="/edit/plan/{{e.id}}"><li class="icon-pencil"></li> Editar</a>
+						</td>
+					{% endif %}
+				</tr>
+			</body>	
+		{% endfor %}
+		</table>
+	{% else %}
+		<h2>No hay Diagnosticos Registrados</h2>
+	{% endif %}
+
+
+{% endblock %}

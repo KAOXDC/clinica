@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %} Grafica de Poblacion Registrada por Edad {% endblock %}
+{% block content %}
+
+<head>
+<script>
+  $(function() {
+    $( "#datepicker1 , #datepicker").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2015",
+      dateFormat: 'dd/mm/yy',
+      gotoCurrent: true,
+      // You can put more options here.
+
+    });
+  });
+  </script>
+ 
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Generos', 'Hombres', 'Mujeres'],
+          ['Total',     {{hom_total}},      {{muj_total}}],
+          ['Mayores',   {{hom_mayores}},      {{muj_mayores}}],
+          ['Menores',   {{hom_menores}},       {{muj_menores}}]
+        ]);
+
+        var options = {
+          title: 'Grafica de Poblacion Registrada por Edad',
+          hAxis: {title: 'Generos Masculino y Femenino', titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+
+  {% if info_enviado %}
+  	<BR>
+  	<h2>Grafica de Poblacion Registrada por Edad</h2>
+  	<div id="chart_div" style="width: 700px; height: 300px;"></div>
+
+  {% else %}
+	<div align="center" class ="alert alert-warning">
+		<p>Para generar el reporte Correctamente diligencie los campos a continuacion y presione la opcion Generar reporte</p>
+	</div>
+  	<form action="." method="POST">
+  		{% csrf_token %}
+  		{{ reporte3.as_p }}
+  		<input type="submit" value ="Generar Reporte" class= "btn btn-info"/>
+    </form>
+  {% endif %}
+  <br>
+  <a class="btn btn-inverse" href="/reportes"><li class="icon-arrow-left icon-white"></li> regresar a reportes</a>
+  
+{% endblock %}

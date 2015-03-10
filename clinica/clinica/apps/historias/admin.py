@@ -13,4 +13,5 @@ admin.site.register(Evolucion)
 admin.site.register(Historia)
 admin.site.register(TipoUsuario)
 admin.site.register(Plan)
+admin.site.register(Estado)
 

@@ -15,4 +15,5 @@ urlpatterns = patterns('clinica.apps.home.views',
 	url(r'^buscar/$','buscar_view', name= 'vista_buscar'),
 	url(r'^login/$', 'login_view', name= 'vista_login'),
 	url(r'^logout/$', 'logout_view', name= 'vista_logout'),
+	#url(r'^reportes/$', 'reportes_view', name = 'vista_reportes'),
 )

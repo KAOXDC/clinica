@@ -9,8 +9,8 @@
 	<h3><b>Historia Clinica</b> : {{ historia.codigo|intcomma }}</h3>
 	<p><b>Paciente </b>: {{ historia.paciente|title }} </p>
 	<p><b>Edad </b>: {{ historia.paciente.persona.edad }}</p>
-	<p><b>Telefono</b>{{ historia.paciente.persona.telefono }}</p>
-	<p><b>E-mail</b> {{ historia.paciente.persona.email }}</p>
+	<p><b>Telefono</b>: {{ historia.paciente.persona.telefono }}</p>
+	<p><b>E-mail</b>: {{ historia.paciente.persona.email }}</p>
 	<p><b>Doctor </b>: {{ historia.doctor.persona|title }} </p>
 </div>
 

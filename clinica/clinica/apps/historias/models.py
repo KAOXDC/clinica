@@ -96,7 +96,7 @@ class Persona(models.Model):
 	apellido1				=models.CharField(max_length=200)
 	apellido2				=models.CharField(max_length=200)
 	fecha_nacimiento		=models.DateField()
-	edad					=models.CharField(max_length=20)
+	edad					=models.IntegerField(max_length=20)
 	identificacion 			=models.ForeignKey(TipoIdentificacion)
 	cedula					=models.CharField(max_length=20, unique=True)
 	direccion				=models.CharField(max_length=200, blank=True)
@@ -123,7 +123,7 @@ class Paciente(models.Model):
 	# Trabajo de la Persona
 	empresa					=models.CharField(max_length=200, blank=True)
 	direccion				=models.CharField(max_length=200, blank=True)
-	telefono				=models.CharField(max_length=20,  blank=True)
+	telefono_empresa		=models.CharField(max_length=200, blank=True)
 	cargo					=models.CharField(max_length=200, blank=True)
 	# En caso de Emergencia  Avisar  a:
 	acudiente				=models.CharField(max_length=200, blank=True)
@@ -161,9 +161,15 @@ class Evolucion(models.Model):
 	def __unicode__ (self):
 		return self.descripcion
 		
+class Estado(models.Model):
+	descripcion				=models.CharField(max_length=200)
+	def __unicode__ (self):
+		return self.descripcion
+
 class Plan(models.Model):
 	historia				=models.ForeignKey(Historia)
 	doctor					=models.ForeignKey(Profesional)
+	estado 					=models.ForeignKey(Estado)
 	fecha					=models.DateField()
 	diente					=models.CharField(max_length=200, choices=dientes)
 	superficie				=models.CharField(max_length=200, choices=superficies)
@@ -171,3 +177,6 @@ class Plan(models.Model):
 	plan_de_tratamiento		=models.TextField(max_length=1000)
 	def __unicode__ (self):
 		return self.diagnostico
+
+
+

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %} Diagnosticos Incompletos {% endblock %}
+{% block content %}
+
+<head>
+<script>
+  $(function() {
+    $( "#datepicker1 , #datepicker").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2015",
+      dateFormat: 'dd/mm/yy',
+      gotoCurrent: true,
+      // You can put more options here.
+
+    });
+  });
+  </script>
+ 
+   <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Incompletos', {{ num_diag_inc }}],
+          ['Completos', {{ num_diag_com }}],
+          ['Cancelado', {{ num_diag_can }}],
+          ['En Proceso', {{ num_diag_pro }}],
+        ]);
+        // Set chart options
+        var options = {'title':'Diagnosticos Incompletos',
+                       'width':800,
+                       'height':500};
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+
+  {% if info_enviado %}
+  	<BR>
+  	<h2>Reporte Cantidad de Diagnosticos Incompletos: </h2>
+  	<p><b>Fecha inicial</b>: {{ fecha_ini }}</p>
+  	<p><b>fecha final</b>: {{ fecha_fin }}</p>
+    <p><b>Cantidad Diagnosticos Incompletos</b>: {{ num_diag_inc }}</p>
+    <p><b>Cantidad Diagnosticos Completos</b>: {{ num_diag_com }}</p>
+    <p><b>Cantidad Diagnosticos Cancelados</b>: {{ num_diag_can }}</p>
+    <p><b>Cantidad Diagnosticos en Proceso</b>: {{ num_diag_pro }}</p>
+  	<div id="chart_div"></div>
+
+
+  <script>
+  $(function() {
+    $( "#tabs" ).tabs();
+      collapsible: true
+  });
+  </script> 
+  <div id="tabs">
+    <ul>
+      <li><a href="#tabs-1">Incompletos</a></li>
+      <li><a href="#tabs-2">En Proceso</a></li>
+    </ul>
+    <div id="tabs-1">
+      {% include 'reportes/incompletos.html' %}      
+    </div>
+    <div id="tabs-2" >
+      {% include 'reportes/en_proceso.html' %}
+    </div>
+  </div>
+
+  {% else %}
+    <div align="center" class ="alert alert-info">
+      <p>Para generar el reporte Correctamente diligencie los campos a continuacion y presione la opcion Generar reporte</p>
+    </div>
+  	<form action="." method="POST">
+  		{% csrf_token %}
+  		{{ reporte2.as_p }}
+  		<input type="submit" value ="Generar Reporte" class= "btn btn-info"/>
+    </form>
+  {% endif %}
+  <br>
+  <a class="btn btn-inverse" href="/reportes"><li class="icon-arrow-left icon-white"></li> regresar a reportes</a>
+  
+{% endblock %}

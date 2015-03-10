@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Pagina de Profesionales {% endblock %}
-{% block content %} 
+{% block content %}
+ 
 	<h3>Lista de Profesionales</h3>
 	{% if user.is_authenticated %}
 		<a href="{% url 'vista_agregar_profesional' %}" class="btn btn-primary"> <i class"icon-plus"></i>Nuevo Profesional</a><br><br>

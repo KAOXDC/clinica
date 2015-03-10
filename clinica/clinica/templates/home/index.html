@@ -2,12 +2,16 @@
 {% block title %} Inicio - Bienvenido {% endblock %}
 {% block content %} 
 
-<div align="center" class ="alert alert-warning">
+<div >
 	{% if user.is_authenticated %}
+	<div align="center" class ="alert alert-success">
 		<p>Bienvenido {{user}} </p>
+	</div>
 	{% else %}	
+	<div align="center" class ="alert alert-warning">
 		<p>Bienvenido loguese para tener privilegios de Administrador</p>
 		<a class="btn btn-primary" href="/login/">Loguearse</a>
+	</div>
 	{% endif %}
 </div>
 <br>

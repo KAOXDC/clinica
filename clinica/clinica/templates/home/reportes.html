@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %} Reportes {% endblock %}
+{% block content %}
+	
+	<h3>Reportes</h3>
+	<div align="center">
+		<img alt="700x240" style="width: 700px; height: 240px;" src="/media/images/reportes.jpg">
+		<p>Seleccione una opcion para ver el reporte que necesita.</p>
+
+	</div>
+	<br>
+
+	<a class="btn btn-info" href="/reportes/diagvstrat"><li class="icon-search"></li> Ver Reporte </a>
+	Grafica cantidad diagnosticos vs tratamientos
+	<br>
+	<br>
+	<a class="btn btn-info" href="/reportes/cumple"><li class="icon-search"></li> Ver Reporte </a>
+	Lista de Pacientes que cumplen años 
+	<br>
+	<br>
+	<a class="btn btn-info" href="/reportes/diagincompleto"><li class="icon-search"></li> Ver Reporte </a>
+	Lista de diagnosticos incompletos y en proceso
+	<br>
+	<br>
+	<a class="btn btn-info" href="/reportes/genero"><li class="icon-search"></li> Ver Reporte </a>
+	Grafica de Poblacion Registrada por Edad
+	<br>
+	<br>
+
+
+<p><a href="/" class="btn btn-primary 	">Regresar al Inicio</a></p>
+{% endblock %}
+

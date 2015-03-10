@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% block content %}
+
+<head>
+  <script>
+  $(function() {
+    $( "#datepicker1 , #datepicker").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2015",
+      dateFormat: 'dd/mm/yy',
+      gotoCurrent: true,
+      // You can put more options here.
+
+    });
+  });
+  </script>
+
+   <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Diagnosticos', {{ num_diag }}],
+          ['Tratamientos', {{ num_trat }}],
+        ]);
+        // Set chart options
+        var options = {'title':'Comparativa Diagnosticos vs Tratamientos',
+                       'width':800,
+                       'height':500};
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+
+</head>
+
+  {% if info_enviado %}
+  	<BR>
+  	<h2>Reporte Cantidad de Diagnosticos contra Cantidad de Tratamientos realizados: </h2>
+  	<p><b>Fecha inicial</b>: {{ fecha_ini }}</p>
+  	<p><b>fecha final</b>: {{ fecha_fin }}</p>
+  	<p><b>Cantidad Diagnosticos</b>: {{ num_diag }}</p>
+  	<p><b>Cantidad Tratamientos</b>: {{ num_trat }}</p>
+  	<div id="chart_div"></div>
+  {% else %}
+    <div align="center" class ="alert alert-info">
+      <p>Para generar el reporte Correctamente diligencie los campos a continuacion y presione la opcion Generar reporte</p>
+    </div>
+  	<form action="." method="POST">
+  		{% csrf_token %}
+  		{{ reporte1.as_p }}
+  		<input type="submit" value ="Generar Reporte" class= "btn btn-success"/>
+    </form>
+  {% endif %}
+  <br>
+  <a class="btn btn-inverse" href="/reportes"><li class="icon-arrow-left icon-white"></li> regresar a reportes</a>
+
+{% endblock %}
